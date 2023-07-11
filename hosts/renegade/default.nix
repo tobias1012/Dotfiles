@@ -8,7 +8,7 @@
     ];
 
 
-    networking.hostName = "Renegade"; # Define your hostname.
+    networking.hostName = "renegade"; # Define your hostname.
 
 
     # Configure keymap in X11
@@ -62,7 +62,7 @@
     git
     alacritty # gpu accelerated terminal
     kitty
-    waybar
+    #waybar
     wayland
     glib # gsettings
     dracula-theme # gtk theme
@@ -74,7 +74,7 @@
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
     bemenu # wayland clone of dmenu
     mako # notification system developed by swaywm maintainer
-    wofi
+    #wofi
     yarn
     cargo
     cargo-tauri
@@ -116,7 +116,7 @@
   #   enableSSHSupport = true;
   # };
 
-  programs.hyprland.enable = true;
+  #programs.hyprland.enable = true;
 
   # List services that you want to enable:
 
@@ -153,12 +153,6 @@
   environment.sessionVariables = rec { 
     GIO_MODULE_DIR="${pkgs.glib-networking}/lib/gio/modules/";
   };
-
-    #home-manager = {
-    #extraSpecialArgs = { inherit inputs; };
-    #users = {
-      # Import your home-manager configuration
-    #  tobias = import ../../home/tobias/home.nix;
-    #};
-    #};
+    home-manager.extraSpecialArgs = { inherit inputs; };
+    home-manager.users.tobias = import ../../home/tobias/${config.networking.hostName}.nix;
 }
