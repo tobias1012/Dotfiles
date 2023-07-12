@@ -13,9 +13,9 @@
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
     ./features/hyprland
+    ./features/developer
   ];
 
-  # TODO: Set your username
   home = {
     username = "tobias";
     homeDirectory = "/home/tobias";

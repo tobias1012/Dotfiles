@@ -55,7 +55,6 @@
     zsh
     zsh-z
     oh-my-zsh
-    vscode
     spotify
     rustc
     rustfmt
