@@ -49,18 +49,13 @@
   environment.systemPackages = with pkgs; [
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     tlp # laptop power management
-    gcc
-    clang
     firefox-wayland
     zsh
     zsh-z
     oh-my-zsh
     spotify
-    rustc
-    rustfmt
-    git
     alacritty # gpu accelerated terminal
-    kitty
+    #kitty
     #waybar
     wayland
     glib # gsettings
@@ -73,37 +68,18 @@
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
     bemenu # wayland clone of dmenu
     mako # notification system developed by swaywm maintainer
-    #wofi
-    yarn
-    cargo
-    cargo-tauri
     pkg-config
     dbus
-    openssl
-    glib
-    gdk-pixbuf
-    libsoup
-    cairo
-    pango
-    webkitgtk
-    glib-networking
     unzip
-    rust-analyzer
     
     #Apps
     blender
     krita
     vlc
 
-
     #Sound suff
     mpd
     pavucontrol
-
-    #Dependencies
-    ncurses
-    gnumake
-    zlib
     
   ];
 
@@ -119,19 +95,7 @@
 
   # List services that you want to enable:
 
-  # Set ZSH as the default Shell
-  programs.zsh = {
-    enable = true;
-    shellAliases = {
-      ll = "ls -l";
-      update = "sudo nixos-rebuild switch";
-    };
-    ohMyZsh = {
-      enable = true;
-      plugins = [ "git" "z" ];
-      theme = "robbyrussell";
-    };
-  };
+  programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];
 

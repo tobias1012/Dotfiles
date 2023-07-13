@@ -4,12 +4,12 @@
     #direnv enable
     programs.direnv.enable = true;
     programs.direnv.nix-direnv.enable = true;
-    # optional for nix flakes support in home-manager 21.11, not required in home-manager unstable or 22.05
-    programs.direnv.nix-direnv.enableFlakes = true;
 
     programs.bash.enable = true;
     # OR
     programs.zsh.enable = true;
+
+    programs.zsh.shellAliases.mkp = "nix flake init -t github:tobias1012/project_template --arg name ";
     
     home.packages = with pkgs; [
         vscode

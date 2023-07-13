@@ -15,6 +15,16 @@
     ./features/hyprland
     ./features/developer
   ];
+  nixpkgs = {
+    # Configure your nixpkgs instance
+    config = {
+      # Disable if you don't want unfree packages
+      allowUnfree = true;
+      # Workaround for https://github.com/nix-community/home-manager/issues/2942
+      allowUnfreePredicate = (_: true);
+    };
+  };
+
 
   home = {
     username = "tobias";
@@ -31,6 +41,20 @@
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   # home.packages = with pkgs; [ steam ];
+
+  # Set ZSH as the default Shell
+  programs.zsh = {
+    enable = true;
+    shellAliases = {
+      ll = "ls -l";
+      update = "sudo nixos-rebuild switch --flake /home/tobias/Dotfiles";
+    };
+    oh-my-zsh = {
+      enable = true;
+      plugins = [ "git" "z" ];
+      theme = "robbyrussell";
+    };
+  };
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
