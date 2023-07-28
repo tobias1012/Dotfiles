@@ -3,7 +3,9 @@ let
     inherit (home.sessionVariables) TERMINAL BROWSER EDITOR;
 in
 ''
-monitor=,prefered,auto,1
+monitor=DP-2,1920x1080@60,0x0,1 #left
+monitor=DP-1,2560x1440@144,1920x0,1 #middle
+monitor=DP-3,1920x1080@60,4480x0,1 #right
 
  general {
     gaps_in=5
