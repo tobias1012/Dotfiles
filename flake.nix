@@ -74,6 +74,10 @@
           modules = [./hosts/renegade];
           specialArgs = { inherit inputs ; };
         };
+        trailblazer = nixpkgs.lib.nixosSystem {
+          modules = [./hosts/trailblazer];
+          specialArgs = { inherit inputs ; };
+        };
         nixos = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
           modules = [
