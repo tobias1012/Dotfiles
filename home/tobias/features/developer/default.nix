@@ -5,7 +5,7 @@
     programs.direnv.enable = true;
     programs.direnv.nix-direnv.enable = true;
 
-    programs.bash.enable = true;
+    #programs.bash.enable = true;
     # OR
     programs.zsh.enable = true;
 
@@ -13,5 +13,8 @@
     
     home.packages = with pkgs; [
         vscode
+	keepassxc
+	vim
+	vimPlugins.LazyVim
     ];
 }
