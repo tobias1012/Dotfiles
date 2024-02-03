@@ -19,6 +19,8 @@
     bemenu # wayland clone of dmenu
     xdg-utils
     waybar
+    wdisplays
+    jq
   ];
 
   gtk = {
@@ -65,12 +67,9 @@
       gtk = true;
     };
 
-    extraConfig = ''
-      output "*" bg /home/kidsan/Pictures/wallpaper.png fill
-    '';
 
     config = {
-      modifier = "Mod1";
+      modifier = "Mod4";
       terminal = "alacritty";
       startup = [
         { command = "sleep 5; systemctl --user restart kanshi.service"; always = true; }
@@ -82,19 +81,9 @@
       menu = "bemenu-run -H 30 --tb '#6272a4' --tf '#f8f8f2' --fb '#282a36' --ff '#f8f8f2' --nb '#282a36' --nf '#6272a4' --hb '#44475a' --hf '#50fa7b' --sb '#44475a' --sf '#50fa7b' --scb '#282a36' --scf '#ff79c6'";
 
       input = {
-        "12815:20550:USB_HID_GMMK_Pro" = {
-          xkb_layout = "gb,us";
+        "type:keyboard" = {
+          xkb_layout = "dk,us";
           xkb_variant = ",dvp";
-          xkb_options = "caps:escape,compose:ralt,grp:ctrls_toggle";
-        };
-        "1133:49305:Logitech_G502_X" = {
-          accel_profile = "flat";
-          pointer_accel = "-0.8";
-        };
-        "1:1:AT_Translated_Set_2_keyboard" = {
-          xkb_layout = "gb,us";
-          xkb_variant = ",dvp";
-          xkb_options = "caps:escape,compose:ralt,grp:ctrls_toggle";
         };
       };
 
@@ -118,7 +107,7 @@
           "XF86AudioRaiseVolume" = "exec 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ -l 1.0'";
           "XF86AudioLowerVolume" = "exec 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%- -l 1.0'";
           "XF86AudioMute" = "exec 'wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle'";
-          "Print" = "exec 'FILENAME=\"screenshot-`date +%F-%T`\"; grim -g \"$(slurp)\" ~/Downloads/$FILENAME.png '";
+          "Print" = "exec 'FILENAME=\"screenshot-`date +%F-%T`\"; grim -g \"$(slurp)\" - | wl-copy'";
           "${modifier}+period" = "exec 'playerctl -p spotify next'";
           "${modifier}+comma" = "exec 'playerctl -p spotify previous'";
           "${modifier}+shift+g" = "mode gaming";
@@ -142,39 +131,9 @@
         "4" = [{ class = "discord"; } { class = "Spotify"; }];
         "8" = [{ app_id = "com.nextcloud.desktopclient.nextcloud"; }];
       };
-      workspaceOutputAssign = [
-        { output = "eDP-1"; workspace = "8"; }
-        { output = "HDMI-A-1"; workspace = "1"; }
-        { output = "HDMI-A-1"; workspace = "2"; }
-        { output = "HDMI-A-1"; workspace = "3"; }
-        { output = "HDMI-A-1"; workspace = "4"; }
-        { output = "HDMI-A-1"; workspace = "5"; }
-        { output = "HDMI-A-1"; workspace = "6"; }
-        { output = "HDMI-A-1"; workspace = "7"; }
-        { output = "HDMI-A-1"; workspace = "9"; }
-      ];
     };
   };
 
-  services.kanshi = {
-    enable = true;
-    profiles = {
-      undocked = {
-        outputs = [
-          { criteria = "eDP-1"; status = "enable"; }
-        ];
-      };
-
-      docked = {
-        outputs = [
-          { criteria = "eDP-1"; status = "enable"; }
-          { criteria = "HDMI-A-1"; status = "enable"; }
-        ];
-      };
-
-    };
-
-  };
 
   services.mako = {
     enable = true;
@@ -204,15 +163,16 @@
         position = "top";
         height = 30;
         modules-left = [ "sway/workspaces" "sway/mode" ];
-        modules-center = [ "custom/weather" "sway/window" ];
+        modules-center = [ "sway/window" ];
         modules-right = [
           "custom/media"
-          "bluetooth"
-          #"network"
+	  "custom/puregym"
+          #"bluetooth"
+          "network"
           "cpu"
-          "temperature"
+          #"temperature"
           "sway/language"
-          "battery"
+          #"battery"
           "pulseaudio"
           "tray"
           "clock#date"
@@ -298,7 +258,7 @@
           format = "{icon} {name}";
           "format-icons" = {
             "1" = ""; #/ FF logo
-            "2" = "";
+            "2" = "";
             "3" = "";
             "4" = "";
             "5" = "";
@@ -345,9 +305,17 @@
           "format" = "{}° ";
           "tooltip" = true;
           "interval" = 3600;
-          "exec" = "wttrbar --location Bonn";
+          "exec" = "wttrbar --location Copenhagen";
           "return-type" = "json";
         };
+
+	"custom/puregym" = {
+          "format" = "{} 💪";
+          "tooltip" = true;
+          "interval" = 900; #Every 15 minutes
+          "exec" = "curl https://mit.puregym.dk/api/v1.0.0/centers/stats/134 | jq .data.list.capacity.people_in_center ";
+        };
+
 
         "bluetooth" = {
           "format" = " {status}";
