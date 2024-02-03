@@ -27,12 +27,17 @@
     wrapperFeatures.gtk = true;
   };
 
+  virtualisation.docker.enable = false;
+  virtualisation.podman.enable = true;
+  virtualisation.podman.dockerSocket.enable = true;
+  virtualisation.podman.defaultNetwork.settings.dns_enabled = true;
+
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.tobias = {
     isNormalUser = true;
     description = "Tobias";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "podman"];
     packages = with pkgs; [];
   };
 
@@ -76,10 +81,15 @@
     blender
     krita
     vlc
+    inkscape
 
     #Sound suff
     mpd
     pavucontrol
+
+    #Docker stuff
+    arion
+    niv
     
   ];
 

@@ -14,6 +14,7 @@
     home.packages = with pkgs; [
         vscode
 	keepassxc
+	signal
 	vim
 	vimPlugins.LazyVim
     ];

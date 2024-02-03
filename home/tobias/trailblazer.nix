@@ -12,7 +12,7 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
-    ./features/hyprland
+    ./features/sway.nix
     ./features/developer
   ];
   nixpkgs = {
@@ -59,6 +59,9 @@
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.git.enable = true;
+  
+  programs.git.userName = "Tobias Jensen";
+  programs.git.userEmail = "tobias1012@gmail.com";
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
